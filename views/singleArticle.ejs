@@ -1,0 +1,31 @@
+<% include partials/header %>
+<h1>Title : <%= article.title %></h1>
+<h1>Description : <%= article.description %></h1>
+<h1>Tags : <%= article.tags %></h1>
+<h1>Author : <%= article.author %></h1>
+<h1>Likes : <%= article.likes %></h1>
+
+<a href="/articles/<%= article._id %>/like"><button>Like</button></a>
+<a href="/articles/<%= article._id %>/edit"><button>Edit</button></a>
+<a href="/articles/<%= article._id %>/delete"><button>Delete</button></a>
+<a href="/articles"><button>Back</button></a>
+
+<form action="/articles/<%= article._id %>/comment" method="post">
+  <textarea name="content" id="content" cols="30" rows="10"></textarea>
+  <input type="text" name="author" placeholder="Author" />
+  <input type="submit" value="Add comment" />
+</form>
+<ul>
+  <% article.comment.forEach(comment => { %>
+  <li>
+    <h1><%= comment.content %></h1>
+    <h2><%= comment.author %></h2>
+    <h3>Likes:<%= comment.likes %></h3>
+    <a href="/comment/<%= comment._id %>/like"><button>Like</button></a>
+    <a href="/comment/<%= comment._id %>/dislike"><button>Dislike</button></a>
+    <a href="/comment/<%= comment._id %>/edit"><button>Edit</button></a>
+    <a href="/comment/<%= comment._id %>/delete"><button>Delete</button></a>
+  </li>
+  <% }) %>
+</ul>
+<% include partials/footer %>
