@@ -8,6 +8,10 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/76c1e6dd19.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
       /* Additional styles for the dropdown */
       .dropdown:hover .dropdown-menu {
@@ -70,6 +74,25 @@
           >
         </nav>
         <div class="flex items-center">
+          <% if(user){ %>
+          <div class="captilize bg-white text-blue-700 rounded-lg p-2 mx-2">
+            <i
+              class="fa-solid fa-user bg-blue-500 text-white rounded-full mr-2 p-1"
+            ></i
+            ><span><%= user.name %></span>
+          </div>
+
+          <a
+            href="/users/logout"
+            class="bg-blue-600 p-2 text-white rounded hover:bg-blue-700 mr-2"
+            >Logout</a
+          >
+          <a
+            href="/articles/new"
+            class="bg-blue-600 p-2 text-white rounded hover:bg-blue-700"
+            >Create</a
+          >
+          <% }else{ %>
           <a
             href="/users/login"
             class="bg-blue-600 p-2 text-white rounded mr-2 hover:bg-blue-700"
@@ -80,6 +103,7 @@
             class="bg-blue-600 p-2 text-white rounded hover:bg-blue-700"
             >Register</a
           >
+          <% } %>
         </div>
         <button class="md:hidden text-white" id="navbar-toggle">
           <svg

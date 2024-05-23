@@ -7,7 +7,7 @@ var articleSchema = new Schema(
     title: { type: String, required: true },
     description: String,
     tags: [String],
-    author: String,
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     likes: { type: Number, default: 0 },
     comment: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   },

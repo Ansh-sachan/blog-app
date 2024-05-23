@@ -61,4 +61,11 @@ router.post('/login', (req, res, next) => {
     .catch((err) => next(err));
 });
 
+// logout;
+router.get('/logout', (req, res, next) => {
+  res.clearCookie('connect.sid');
+  req.session.destroy();
+  res.redirect('/users/login');
+});
+
 module.exports = router;

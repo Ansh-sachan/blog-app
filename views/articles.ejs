@@ -1,12 +1,6 @@
 <% include partials/header %>
-<div class="flex">
-  <h1>Blogs</h1>
-  <a href="/article/new">
-    <button>Create</button>
-  </a>
-</div>
 <ul
-  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4 container mx-auto"
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4 container mx-auto my-6"
 >
   <% list.forEach(article =>{ %>
   <li class="bg-white shadow-md rounded-lg overflow-hidden ml-4">
