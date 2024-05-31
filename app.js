@@ -8,6 +8,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var auth = require('./middlewares/auth');
+var passport = require('passport');
 
 require('dotenv').config();
 
@@ -22,6 +23,7 @@ mongoose
   .then((res) => console.log('connected to databse'))
   .catch((err) => console.log(err));
 
+require('./module/passport');
 var app = express();
 
 // view engine setup
@@ -45,6 +47,8 @@ app.use(
 app.use(flash());
 
 app.use(auth.userInfo);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);

@@ -36,7 +36,12 @@
       <a href="/articles/<%= article.id %>/like"
         >💗<span class="text-sm"><%= article.likes %></span></a
       >
-      <% if(user.name === article.author.name){ %>
+      <% if(user){ %>
+      <span>true</span>
+      <% } %>
+      <div></div>
+
+      <%if(user.name === article.author.name){ %>
       <a href="/articles/<%= article.id %>/edit"
         >🖊<span class="text-sm">Edit</span></a
       >
@@ -91,6 +96,8 @@
         <a href="/comment/<%= comment.id %>/delete"
           >❌<span class="text-sm">Delete</span></a
         >
+        <% }else{ %>
+        <span>You dont edit</span>
         <% } %>
       </div>
     </li>

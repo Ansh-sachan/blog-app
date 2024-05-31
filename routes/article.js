@@ -7,8 +7,9 @@ var auth = require('../middlewares/auth');
 /* GET users listing. */
 // all articles
 router.get('/', function (req, res, next) {
+  // console.log(req.user);
   Article.find({})
-    .then((data) => res.render('articles', { list: data }))
+    .then((data) => res.render('articles', { list: data, user: req.user }))
     .catch((err) => next(err));
 });
 // new article
