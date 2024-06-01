@@ -72,6 +72,7 @@ router.post('/:id/comment', (req, res, next) => {
   var id = req.params.id;
   // creating comment
   req.body.articleId = id;
+  req.body.author = req.user.name;
   Comment.create(req.body)
     .then((info) => {
       Article.findByIdAndUpdate(id, { $push: { comment: info._id } })

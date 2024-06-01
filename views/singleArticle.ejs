@@ -79,7 +79,7 @@
     <li class="bg-blue-100 p-4 rounded my-2">
       <h2>
         <span>Author :</span
-        ><span class="text-gray-600 text-sm"><%= article.author.name %></span>
+        ><span class="text-gray-600 text-sm"><%= comment.author %></span>
       </h2>
       <h1 class="text-gray-700"><%= comment.content %></h1>
       <div class="flex items-center text-gray-600 justify-between w-2/5">
@@ -89,7 +89,7 @@
         <a href="/comment/<%= comment.id %>/dislike"
           >👎<span class="text-sm"><%= comment.dislike %></span></a
         >
-        <% if(user.name === article.author.name){ %>
+        <% if(user.name === comment.author){ %>
         <a href="/comment/<%= comment.id %>/edit"
           >🖊<span class="text-sm">Edit</span></a
         >

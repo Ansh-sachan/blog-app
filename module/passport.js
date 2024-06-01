@@ -12,8 +12,41 @@ passport.use(
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: '/auth/github/callback',
     },
-    (acessToken, refreshToken, profile, done) => {
+    (acesstoken, refreshtoken, profile, done) => {
       console.log(profile);
+      var userProfile = {
+        email: profile._json.email,
+        name: profile.displayName,
+        gthub: {
+          photo: profile._json.avatar_url,
+        },
+      };
+      User.findOne({ email: profile._json.email })
+        .then((user) => {
+          if (!user) {
+            User.create(userProfile)
+              .then((newUser) => done(null, newUser))
+              .catch((err) => done(err));
+          } else {
+            if (user.providers.includes('google') && user.google) {
+              return done({
+                code: 503,
+                message: 'Your account already linked with google',
+              });
+            } else {
+              (user.name = profile.displayName),
+                (user.google = {
+                  image: profile._json.picture,
+                });
+              user.providers.push('google');
+              User.findByIdAndUpdate(user.id, user).then((existUser) =>
+                done(null, existUser)
+              );
+            }
+            return done(null, user);
+          }
+        })
+        .catch((err) => done(err));
     }
   )
 );
@@ -41,8 +74,11 @@ passport.use(
               .then((newUser) => done(null, newUser))
               .catch((err) => done(err));
           } else {
-            if (user.providers.includes('google') && user.google) {
-              return done(null, user);
+            if (user.providers.includes('github') && user.github) {
+              return done({
+                code: 503,
+                message: 'Your account is already linked with github',
+              });
             } else {
               (user.name = profile.displayName),
                 (user.google = {
@@ -53,6 +89,7 @@ passport.use(
                 done(null, existUser)
               );
             }
+            return done(null, user);
           }
         })
         .catch((err) => done(err));
